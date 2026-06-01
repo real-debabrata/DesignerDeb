@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designer Deb</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dfyuuze2y/image/upload/v1780231292/DD_LOGO.jpg">
+    
+    <!-- TailWind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    screens: {
+                        'xs': '375px',
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Cormorant Garamond', 'serif'], // Swapped to a luxury, high-fashion serif font
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            900: '#1e1b4b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Importing Cormorant Garamond (luxury serif) & Plus Jakarta Sans (clean sans-serif) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        /* Base Reset & Custom Performance Tweaks */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            outline: none !important;
+        }
+
+        body {
+            background-color: #fafbfc;
+            overflow-x: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Lenis Smooth Scroll Core Rules */
+        html.lenis, html.lenis body {
+            height: auto;
+        }
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+        .lenis.lenis-scrolling iframe {
+            pointer-events: none;
+        }
+
+        /* Ambient Dynamic Background & Grid */
+        .grid-bg {
+            background-image: radial-gradient(#e2e8f0 1.5px, transparent 1.5px);
+            background-size: 32px 32px;
+        }
+
+        /* High-Fidelity SaaS Glassmorphism */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+        }
+
+        .glass-panel-dark {
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
+        }
+
+        /* SaaS Liquid Glass Glowing Effect */
+        .liquid-glass {
+            position: relative;
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .liquid-glass::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.1), rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.15));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .liquid-glass:hover::before {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.6), rgba(168, 85, 247, 0.6), rgba(236, 72, 153, 0.6));
+        }
+
+        /* Custom Premium Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fafbfc;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* GPU Accelerated High Performance Custom Cursor */
+        .custom-cursor {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(99, 102, 241, 0.85);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate3d(0, 0, 0) translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+            will-change: transform;
+        }
+
+        .custom-cursor-follower {
+            width: 42px;
+            height: 42px;
+            border: 1.5px solid rgba(99, 102, 241, 0.4);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate3d(0, 0, 0) translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9998;
+            transition: width 0.2s, height 0.2s, border-color 0.2s, background-color 0.2s;
+            will-change: transform;
+        }
+
+        .hover-active .custom-cursor {
+            width: 32px;
+            height: 32px;
+            background-color: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.85);
+        }
+        
+        .hover-active .custom-cursor-follower {
+            width: 62px;
+            height: 62px;
+            border-color: rgba(99, 102, 241, 0.85);
+        }
+
+        /* Marquee Animation */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 25s linear infinite;
+        }
+
+        .animate-marquee-reverse {
+            display: flex;
+            width: max-content;
+            animation: marquee 25s linear infinite reverse;
+        }
+
+        /* Hide Scrollbars in Containers */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .marquee-image-small {
+            height: 60px;
+        }
+
+        /* High-Performance Category 4 Stacking Effects */
+        .stack-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            will-change: transform;
+            transform: translate3d(0, 120%, 0);
+        }
+        .stack-img:first-child {
+            transform: translate3d(0, 0, 0);
+        }
+    </style>
+</head>
+<body class="antialiased text-slate-900 selection:bg-transparent">
+
+    <!-- Interactive Custom Cursor (Hidden on touch devices) -->
+    <div id="cursor" class="custom-cursor hidden lg:block"></div>
+    <div id="cursor-follower" class="custom-cursor-follower hidden lg:block"></div>
+
+    <!-- Preloader Overlay -->
+    <div id="preloader" class="fixed inset-0 bg-slate-50 z-[10000] flex flex-col justify-between p-6 md:p-12 transition-all duration-1000 ease-out">
+        <div class="flex justify-between items-center w-full">
+            <span class="font-display font-medium text-2xl italic tracking-wider text-slate-900">Designer Deb</span>
+            <span class="text-xs font-semibold tracking-widest text-slate-500 uppercase">Interactive Portfolio</span>
+        </div>
+        
+        <div class="flex flex-col items-start space-y-4 max-w-xl w-full">
+            <div class="h-[2px] w-full bg-slate-200 overflow-hidden relative rounded-full">
+                <div id="preloader-bar" class="absolute left-0 top-0 h-full w-0 bg-brand-500 transition-all duration-500 ease-out"></div>
+            </div>
+            <div class="flex justify-between items-end w-full">
+                <h1 class="font-display text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-medium italic text-slate-900 leading-none">
+                    Crafting<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-violet-500 not-italic font-bold">Visual Stories</span>
+                </h1>
+                <span id="preloader-perc" class="font-display text-3xl md:text-4xl font-extrabold text-slate-300">00</span>
+            </div>
+        </div>
+        
+        <div class="flex justify-between items-center text-[10px] text-slate-400 font-mono tracking-widest uppercase">
+            <span>© 2026 DESIGNER DEB</span>
+            <span>PREPARING EXPERIENCE</span>
+        </div>
+    </div>
+
+    <!-- Sticky Navigation Bar -->
+    <header class="fixed top-0 left-0 w-full z-50 px-4 py-3 md:px-8 md:py-5 transition-all duration-300">
+        <nav class="max-w-7xl mx-auto glass-panel rounded-full px-6 py-3 flex justify-between items-center shadow-lg shadow-slate-100/50">
+            <!-- Brand Logo -->
+            <a href="#hero" class="magnetic-btn font-display font-bold text-3xl italic tracking-wider text-slate-900 hover-target">
+                Designer Deb<span class="text-brand-500 not-italic"></span>
+            </a>
+
+            <!-- Desk Nav Options -->
+            <div class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-600">
+                <a href="#portfolio" class="hover-target hover:text-brand-500 transition-colors">Works</a>
+                <a href="#packaging" class="hover-target hover:text-brand-500 transition-colors">Brochures</a>
+                <a href="#social-feed" class="hover-target hover:text-brand-500 transition-colors">Feed Emulator</a>
+                <a href="#about" class="hover-target hover:text-brand-500 transition-colors">Designer</a>
+                <a href="#testimonials" class="hover-target hover:text-brand-500 transition-colors">Client Space</a>
+            </div>
+
+            <!-- Header CTA -->
+            <button onclick="openSocialModal()" class="magnetic-btn hover-target bg-slate-900 hover:bg-brand-500 text-white font-semibold text-xs uppercase tracking-widest px-6 py-3 rounded-full transition-all duration-300 ease-out shadow-md shadow-slate-900/10 hover:shadow-brand-500/20">
+                Connect 🔗
+            </button>
+        </nav>
+    </header>
+
+    <!-- Global Dynamic Ambient Lighting Glows -->
+    <div id="ambient-glow-1" class="fixed -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-indigo-200/40 blur-[120px] pointer-events-none z-0 transition-all duration-1000 ease-out"></div>
+    <div id="ambient-glow-2" class="fixed top-1/2 -right-40 w-[500px] h-[500px] rounded-full bg-violet-200/30 blur-[120px] pointer-events-none z-0 transition-all duration-1000 ease-out"></div>
+
+    <!-- Main Container -->
+    <main class="relative z-10 grid-bg min-h-screen">
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="relative min-h-screen flex flex-col justify-center px-4 md:px-8 pt-24 overflow-hidden" data-glow="from-indigo-200 to-purple-200">
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Typography Left -->
+                <div class="lg:col-span-7 flex flex-col space-y-6 md:space-y-8 z-10 text-center lg:text-left">
+                    <div class="hero-reveal inline-flex self-center lg:self-start items-center space-x-2 bg-white/80 border border-slate-200/60 rounded-full px-4 py-1.5 shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-600 font-sans">Booking Q2 Projects</span>
+                    </div>
+
+                    <h1 class="hero-reveal font-display text-4xl xs:text-5xl sm:text-7xl md:text-8xl font-medium text-slate-900 leading-[1.0] tracking-tight">
+                        Crafting <br class="hidden sm:block">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 via-purple-500 to-pink-500 italic font-semibold">
+                            Unreasonable
+                        </span> <br class="hidden sm:block">
+                        Attention.
+                    </h1>
+
+                    <p class="hero-reveal text-slate-600 max-w-lg mx-auto lg:mx-0 text-sm sm:text-base md:text-lg leading-relaxed font-medium">
+                        High-fidelity visual identity systems, poster systems, and promotional assets forged for progressive brands demanding modern design superiority.
+                    </p>
+
+                    <div class="hero-reveal flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4 w-full">
+                        <a href="#portfolio" class="hover-target w-full sm:w-auto text-center px-8 py-4 bg-white hover:bg-slate-50 text-slate-800 font-bold border border-slate-200 rounded-full shadow-sm transition-all duration-300">
+                            Explore Visuals
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Floating Motion Elements (Right Side) -->
+                <div class="lg:col-span-5 relative w-full h-[320px] xs:h-[350px] md:h-[500px] flex items-center justify-center">
+                    <div class="absolute w-64 h-64 xs:w-72 xs:h-72 md:w-96 md:h-96 rounded-3xl bg-gradient-to-tr from-brand-500/20 to-purple-500/20 animate-[spin_12s_linear_infinite] blur-md"></div>
+                    
+                    <!-- Floating Card 1: Brand Concept mockup placeholder -->
+                    <div class="hero-card liquid-glass absolute top-6 left-2 xs:top-10 xs:left-4 w-36 xs:w-44 md:w-56 aspect-[3/4] rounded-2xl p-4 shadow-xl transform -rotate-6 hover:rotate-0 transition-transform duration-500">
+                        <div 
+class="w-full h-2/3 rounded-xl relative overflow-hidden mb-3 bg-cover bg-center"
+style="background-image:url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1779884391/Black_Red_White_Minimalist_Simple_Creative_Agency_Intro_Poster_20260527_174921_0000_ucuttz.png');">
+                        </div>
+                        <div class="space-y-1">
+                            <span class="text-[9px] md:text-[10px] font-bold text-brand-500 uppercase tracking-wider font-sans">Concept Art</span>
+                            <h4 class="text-[11px] md:text-xs font-bold text-slate-800 leading-tight">Systematic Symmetry</h4>
+                        </div>
+                    </div>
+                
+                    <!-- Floating Card 2: Editorial Poster layout mockup -->
+                    <div class="hero-card liquid-glass absolute bottom-2 right-2 xs:bottom-4 xs:right-4 w-40 xs:w-48 md:w-60 aspect-[3/4] rounded-2xl p-4 shadow-xl transform rotate-6 hover:rotate-0 transition-transform duration-500">
+                        <div 
+class="w-full h-2/3 rounded-xl relative overflow-hidden mb-3 bg-cover bg-center"
+style="background-image:url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780143583/Yellow_and_Blue_Illustrative_Happy_Father_s_Day_Instagram_Post_20250615_095204_0000_aewmbo.png');">
+                        </div>
+                        <div class="space-y-1">
+                            <span class="text-[9px] md:text-[10px] font-bold text-teal-500 uppercase tracking-wider font-sans">Emotion</span>
+                            <h4 class="text-[11px] md:text-xs font-bold text-slate-800 leading-tight">Brand Connection</h4>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- CATEGORY I: LOGOS & BRAND IDENTITY (3D Coverflow Slider Style) -->
+        <section id="portfolio" class="py-24 px-4 md:px-8 relative overflow-hidden" data-glow="from-teal-100 to-cyan-100">
+            <div class="max-w-7xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-500">ATTENTION GAINER</span>
+                <h2 class="font-display text-3xl sm:text-5xl md:text-6xl font-medium text-slate-900 mt-2">Social Post & Brand Systems</h2>
+                <p class="text-slate-500 mt-4 max-w-xl text-sm sm:text-base">Interactive premium brand systems. That makes connection between Brand & Consumer.</p>
+            </div>
+
+            <!-- Swiper Container for 3D Coverflow -->
+            <div class="swiper swiper-coverflow max-w-5xl !overflow-visible py-10">
+                <div class="swiper-wrapper">
+                    <!-- Slides (CSS based responsive placeholders) -->
+                    <div class="swiper-slide w-72 xs:w-80 md:w-96 max-w-[calc(100vw-2rem)] liquid-glass rounded-3xl p-6 shadow-xl relative overflow-hidden group">
+                        <div class="w-full aspect-square rounded-2xl mb-6 relative overflow-hidden bg-cover bg-center"
+style="background-image:url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1779904187/20250605_102852_uotmqy.png');">
+    <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-all duration-300"></div>
+                        </div>
+                        <h3 class="font-display text-2xl font-semibold text-slate-900">Coffee Launch</h3>
+                        <p class="text-xs text-slate-500 tracking-wider uppercase mt-1">Menu Design / Social Post</p>
+                    </div>
+
+                    <div class="swiper-slide w-72 xs:w-80 md:w-96 max-w-[calc(100vw-2rem)] liquid-glass rounded-3xl p-6 shadow-xl relative overflow-hidden group">
+                        <div class="w-full aspect-square rounded-2xl mb-6 relative overflow-hidden bg-cover bg-center bg-no-repeat"
+    style="background-image:url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1779904190/20250604_125441_pqie5n.png');">
+                            
+                        </div>
+                        <h3 class="font-display text-2xl font-semibold text-slate-900">Monsoon Pairs</h3>
+                        <p class="text-xs text-slate-500 tracking-wider uppercase mt-1">Creative Post</p>
+                    </div>
+
+                    <div class="swiper-slide w-72 xs:w-80 md:w-96 max-w-[calc(100vw-2rem)] liquid-glass rounded-3xl p-6 shadow-xl relative overflow-hidden group">
+                        <div class="w-full aspect-square rounded-2xl mb-6 relative overflow-hidden bg-cover bg-center bg-no-repeat"
+    style="background-image:url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1779904173/Pink_Elegant_Laxmi_Puja_Greeting_Instagram_Post_20251001_192715_0000_kp70en.png');">
+                            
+                        </div>
+                        <h3 class="font-display text-2xl font-semibold text-slate-900">Laxmi Devi</h3>
+                        <p class="text-xs text-slate-500 tracking-wider uppercase mt-1">Spiritual Connection</p>
+                    </div>
+
+                    <div class="swiper-slide w-72 xs:w-80 md:w-96 max-w-[calc(100vw-2rem)] liquid-glass rounded-3xl p-6 shadow-xl relative overflow-hidden group">
+                        <div class="w-full aspect-square rounded-2xl mb-6 relative overflow-hidden bg-cover bg-center bg-no-repeat"
+    style="background-image:url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1779904165/Red_And_Gold_Vibrant_Traditional_Durga_Puja_Sale_Marketing_Instagram_Post_20251001_144641_0000_rlfnrw.png');">
+                            
+                        </div>
+                        <h3 class="font-display text-2xl font-semibold text-slate-900">Offer Post</h3>
+                        <p class="text-xs text-slate-500 tracking-wider uppercase mt-1">Festival Offers</p>
+                    </div>
+                    
+                    <div class="swiper-slide w-72 xs:w-80 md:w-96 max-w-[calc(100vw-2rem)] liquid-glass rounded-3xl p-6 shadow-xl relative overflow-hidden group">
+                        <div class="w-full aspect-square rounded-2xl mb-6 relative overflow-hidden bg-cover bg-center bg-no-repeat"
+    style="background-image:url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1779904187/20241002_081307_japdxv.png');">
+                            
+                        </div>
+                        <h3 class="font-display text-2xl font-semibold text-slate-900">Premium Business Card</h3>
+                        <p class="text-xs text-slate-500 tracking-wider uppercase mt-1">Retention</p>
+                    </div>
+
+                    <div class="swiper-slide w-72 xs:w-80 md:w-96 max-w-[calc(100vw-2rem)] liquid-glass rounded-3xl p-6 shadow-xl relative overflow-hidden group">
+                        <div class="w-full aspect-square rounded-2xl mb-6 relative overflow-hidden bg-cover bg-center bg-no-repeat"
+    style="background-image:url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780143583/Yellow_and_Beige_Illustrative_Independence_Day_Sale_Instagram_Post_20250805_155308_0000_bkyf4n.png');">
+                            
+                        </div>
+                        <h3 class="font-display text-2xl font-semibold text-slate-900">Independence Day</h3>
+                        <p class="text-xs text-slate-500 tracking-wider uppercase mt-1 font-sans">Patriarchal Branding</p>
+                    </div>
+                </div>
+                <!-- Pagination -->
+                <div class="swiper-pagination !-bottom-2 font-sans"></div>
+            </div>
+        </section>
+
+
+        <!-- CATEGORY II: CAMPAIGNS & POSTERS (GSAP Pinned Horizontal Scroll Section) -->
+        <section id="campaigns-section" class="py-24 px-4 md:px-8 bg-slate-100/50 border-y border-slate-200/50 relative overflow-hidden" data-glow="from-amber-100 to-orange-100">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-500">Category II</span>
+                    <h2 class="font-display text-3xl sm:text-5xl md:text-6xl font-medium text-slate-900 mt-2">Posters & Campaigns</h2>
+                </div>
+                <p class="text-slate-500 max-w-md leading-relaxed text-sm sm:text-base font-sans">
+                    Swipe or drag through these high-intensity experimental promotional designs, combining modular grids with sleek cinematic color spaces.
+                </p>
+            </div>
+
+            <!-- Draggable Row of Cards -->
+            <div id="campaign-carousel" class="flex gap-8 overflow-x-auto py-8 px-2 no-scrollbar cursor-grab active:cursor-grabbing snap-x snap-mandatory">
+                <!-- Slide 1 -->
+                <div class="flex-shrink-0 w-[260px] xs:w-[300px] md:w-[380px] max-w-[calc(100vw-2rem)] snap-center liquid-glass rounded-2xl p-4 md:p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <div class="w-full aspect-[3/4] rounded-xl bg-cover bg-center flex flex-col justify-between p-6 text-white mb-6 relative overflow-hidden" style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1779885046/KNOCK_KNOCK__20260527_180010_0000_d2nlsy.png?auto=format&fit=crop&w=800&q=80');">
+                        <div class="text-[10px] font-bold tracking-widest uppercase bg-white/20 backdrop-blur-sm self-start px-2 py-1 rounded font-sans">Volume 01</div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold text-slate-800 font-sans">KNOCK KNOCK Vol 1</span>
+                        <span class="text-xs text-slate-400 font-sans">Movie Poster</span>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="flex-shrink-0 w-[260px] xs:w-[300px] md:w-[380px] max-w-[calc(100vw-2rem)] snap-center liquid-glass rounded-2xl p-4 md:p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <div class="w-full aspect-[3/4] rounded-xl bg-cover bg-center flex flex-col justify-between p-6 text-white mb-6 relative overflow-hidden" style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1779904168/Blue_and_Gold_Illustrated_Dusshera_Festival_Instagram_Post_20251001_191455_0000_l6rozh.png?auto=format&fit=crop&w=800&q=80');">
+                        <div class="text-[10px] font-bold tracking-widest uppercase bg-white/20 backdrop-blur-sm self-start px-2 py-1 rounded font-sans">FESTIVE</div>
+                      
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold text-slate-800 font-sans">Dusshera Greetings</span>
+                        <span class="text-xs text-slate-400 font-sans">Engagement Poster</span>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="flex-shrink-0 w-[260px] xs:w-[300px] md:w-[380px] max-w-[calc(100vw-2rem)] snap-center liquid-glass rounded-2xl p-4 md:p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <div class="w-full aspect-[3/4] rounded-xl bg-cover bg-center flex flex-col justify-between p-6 text-white mb-6 relative overflow-hidden" style="background-image:  url('https://res.cloudinary.com/dfyuuze2y/image/upload/Green_and_Yellow_Modern_Sale_Discount_Promotion_Instagram_Post_4_5_20250928_125832_0000_gmdbvg.png?auto=format&fit=crop&w=800&q=80');">
+                        <div class="text-[10px] font-bold tracking-widest uppercase bg-white/20 backdrop-blur-sm self-start px-2 py-1 rounded font-sans">COUPON</div>
+                        
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold text-slate-800 font-sans">COUPON CODE</span>
+                        <span class="text-xs text-slate-400 font-sans">Discount Poster</span>
+                    </div>
+                </div>
+
+                <!-- Slide 4 -->
+                <div class="flex-shrink-0 w-[260px] xs:w-[300px] md:w-[380px] max-w-[calc(100vw-2rem)] snap-center liquid-glass rounded-2xl p-4 md:p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <div class="w-full aspect-[3/4] rounded-xl bg-cover bg-center flex flex-col justify-between p-6 text-white mb-6 relative overflow-hidden" style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780143584/Summer_sm4ihz.png?auto=format&fit=crop&w=800&q=80');">
+                        <div class="text-[10px] font-bold tracking-widest uppercase bg-white/20 backdrop-blur-sm self-start px-2 py-1 rounded font-sans">SPECIAL</div>
+                     
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold text-slate-800 font-sans">RAKSHA BANDHAN SPECIAL</span>
+                        <span class="text-xs text-slate-400 font-sans">Web Poster</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- CATEGORY III: SOCIAL MEDIA AD CREATIVES & BANNER MARQUEE (Infinite Loop with Floating Images & Text Below) -->
+        <section class="py-24 relative overflow-hidden" data-glow="from-pink-100 to-purple-100">
+            <div class="max-w-7xl mx-auto px-4 md:px-8 mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-500">Category III</span>
+                <h2 class="font-display text-3xl sm:text-5xl md:text-6xl font-medium text-slate-900 mt-2">Social Ad & Banners</h2>
+                <p class="text-slate-500 mt-4 max-w-xl text-sm sm:text-base">Supercharged interactive banners driving engagement for modern businesses.</p>
+            </div>
+
+            <!-- Double Infinite Marquee System -->
+            <div class="space-y-6">
+                <!-- Loop Marquee 1 (Left Direction) -->
+                <div class="relative overflow-hidden w-full py-4">
+                    <div class="animate-marquee gap-8">
+                        <!-- Marquee items -->
+                        <div class="flex-shrink-0 flex flex-col space-y-2 bg-white/80 border border-slate-200/60 p-3 rounded-xl shadow-sm w-72 xs:w-80 md:w-96 hover:scale-[1.02] transition-all duration-300 hover-target">
+                            <div class="w-full marquee-image-small rounded-x1 bg-contain bg-no-repeat bg-center border border-slate-100/50" style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780157017/Blue_and_White_Modern_Travel_Mobile_Banner_Ad.png');"></div>
+                            <div class="px-1 pb-1">
+                                <span class="text-[9px] font-bold uppercase text-brand-500 tracking-wider font-sans mb-0.5 block">Promo Campaign</span>
+                                <div class="text-xs font-bold uppercase text-slate-800 tracking-wider font-sans truncate">Summer Launch Ad</div>
+                            </div>
+                        </div>
+
+                        <div class="flex-shrink-0 flex flex-col space-y-3 bg-white/80 border border-slate-200/60 p-3 rounded-2xl shadow-sm w-48 xs:w-56 md:w-64 hover:scale-[1.02] transition-all duration-300 hover-target">
+                            <div class="w-full marquee-image-small rounded-xl bg-cover bg-center border border-slate-100/50 " style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780143582/White_Blue_Modern_Gift_Voucher_Ticket_20250924_202145_0000_z2mifv.png?auto=format&fit=crop&w=400&q=80');"></div>
+                            <div class="px-1 pb-1">
+                                <span class="text-[9px] font-bold uppercase text-brand-500 tracking-wider font-sans mb-0.5 block">Performance</span>
+                                <div class="text-xs font-bold uppercase text-slate-800 tracking-wider font-sans truncate">Speed Opt Promo</div>
+                            </div>
+                        </div>
+
+                        <div class="flex-shrink-0 flex flex-col space-y-3 bg-white/80 border border-slate-200/60 p-3 rounded-2xl shadow-sm w-48 xs:w-56 md:w-64 hover:scale-[1.02] transition-all duration-300 hover-target">
+                            <div class="w-full marquee-image-small bg-cover bg-center border border-slate-100/50 " style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780145255/ticket.jpg');"></div>
+                            <div class="px-1 pb-1">
+                                <span class="text-[9px] font-bold uppercase text-brand-500 tracking-wider font-sans mb-0.5 block">Unveiling</span>
+                                <div class="text-xs font-bold uppercase text-slate-800 tracking-wider font-sans truncate">Product Campaign</div>
+                            </div>
+                        </div>
+
+                        <!-- Cloned Items for Loop -->
+                        <div class="flex-shrink-0 flex flex-col space-y-3 bg-white/80 border border-slate-200/60 p-3 rounded-2xl shadow-sm w-48 xs:w-56 md:w-64 hover:scale-[1.02] transition-all duration-300 hover-target">
+                            <div class="w-full marquee-image-small rounded-xl bg-cover bg-center border border-slate-100/50" style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780147293/Ticket2.png');"></div>
+                            <div class="px-1 pb-1">
+                                <span class="text-[9px] font-bold uppercase text-brand-500 tracking-wider font-sans mb-0.5 block">Promo Campaign</span>
+                                <div class="text-xs font-bold uppercase text-slate-800 tracking-wider font-sans truncate">Summer Launch Ad</div>
+                            </div>
+                        </div>
+
+                        <div class="flex-shrink-0 flex flex-col space-y-3 bg-white/80 border border-slate-200/60 p-3 rounded-2xl shadow-sm w-48 xs:w-56 md:w-64 hover:scale-[1.02] transition-all duration-300 hover-target">
+                            <div class="w-full marquee-image-small rounded-xl bg-cover bg-center border border-slate-100/50 shadow-inner" style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780157017/Blue_and_White_Modern_Travel_Mobile_Banner_Ad.png?auto=format&fit=crop&w=400&q=80');"></div>
+                            <div class="px-1 pb-1">
+                                <span class="text-[9px] font-bold uppercase text-brand-500 tracking-wider font-sans mb-0.5 block">Performance</span>
+                                <div class="text-xs font-bold uppercase text-slate-800 tracking-wider font-sans truncate">Speed Opt Promo</div>
+                            </div>
+                        </div>
+
+                        <div class="flex-shrink-0 flex flex-col space-y-3 bg-white/80 border border-slate-200/60 p-3 rounded-2xl shadow-sm w-48 xs:w-56 md:w-64 hover:scale-[1.02] transition-all duration-300 hover-target">
+                            <div class="w-full marquee-image-small rounded-xl bg-cover bg-center border border-slate-100/50 shadow-inner" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80');"></div>
+                            <div class="px-1 pb-1">
+                                <span class="text-[9px] font-bold uppercase text-brand-500 tracking-wider font-sans mb-0.5 block">Unveiling</span>
+                                <div class="text-xs font-bold uppercase text-slate-800 tracking-wider font-sans truncate">Product Campaign</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loop Marquee 2 (Right Direction) -->
+                <div class="relative overflow-hidden w-full py-4">
+                    <div class="animate-marquee-reverse gap-8">
+                        <!-- Marquee items -->
+                        <div class="flex-shrink-0 flex flex-col space-y-3 bg-white/80 border border-slate-200/60 p-3 rounded-2xl shadow-sm w-48 xs:w-56 md:w-64 hover:scale-[1.02] transition-all duration-300 hover-target">
+                            <div class="w-full marquee-image-small rounded-xl bg-cover bg-center border border-slate-100/50" style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780147293/Ticket2.png');"></div>
+                            <div class="px-1 pb-1">
+                                <span class="text-[9px] font-bold uppercase text-brand-500 tracking-wider font-sans mb-0.5 block">Eco Identity</span>
+                                <div class="text-xs font-bold uppercase text-slate-800 tracking-wider font-sans truncate">Eco-Forward Brand</div>
+                            </div>
+                        </div>
+
+                        <div class="flex-shrink-0 flex flex-col space-y-3 bg-white/80 border border-slate-200/60 p-3 rounded-2xl shadow-sm w-48 xs:w-56 md:w-64 hover:scale-[1.02] transition-all duration-300 hover-target">
+                            <div class="w-full marquee-image-small rounded-xl bg-cover bg-center border border-slate-100/50 " style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780147294/Ticket4.png');"></div>
+                            <div class="px-1 pb-1">
+                                <span class="text-[9px] font-bold uppercase text-brand-500 tracking-wider font-sans mb-0.5 block">Festive Ad</span>
+                                <div class="text-xs font-bold uppercase text-slate-800 tracking-wider font-sans truncate">Holiday Creatives</div>
+                            </div>
+                        </div>
+
+                        <div class="flex-shrink-0 flex flex-col space-y-3 bg-white/80 border border-slate-200/60 p-3 rounded-2xl shadow-sm w-48 xs:w-56 md:w-64 hover:scale-[1.02] transition-all duration-300 hover-target">
+                            <div class="w-full marquee-image-small rounded-xl bg-cover bg-center border border-slate-100/50 " style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780147293/Ticket3.png');"></div>
+                            <div class="px-1 pb-1">
+                                <span class="text-[9px] font-bold uppercase text-brand-500 tracking-wider font-sans mb-0.5 block">Flash Sale</span>
+                                <div class="text-xs font-bold uppercase text-slate-800 tracking-wider font-sans truncate">Cyber Week Promos</div>
+                            </div>
+                        </div>
+
+                        <!-- Cloned Items for Loop -->
+                        <div class="flex-shrink-0 flex flex-col space-y-2 bg-white/80 border border-slate-200/60 p-3 rounded-xl shadow-sm w-72 xs:w-80 md:w-96 hover:scale-[1.02] transition-all duration-300 hover-target">
+                            <div class="w-full marquee-image-small rounded-xl bg-contain bg-no-repeat bg-center border-slate-100/50" style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780154899/Modern_Travel_Mobile_Banner_Ad.png?auto=format&fit=crop&w=400&q=80');"></div>
+                            <div class="px-1 pb-1">
+                                <span class="text-[9px] font-bold uppercase text-brand-500 tracking-wider font-sans mb-0.5 block">Eco Identity</span>
+                                <div class="text-xs font-bold uppercase text-slate-800 tracking-wider font-sans truncate">Eco-Forward Brand</div>
+                            </div>
+                        </div>
+
+                        <div class="flex-shrink-0 flex flex-col space-y-3 bg-white/80 border border-slate-200/60 p-3 rounded-2xl shadow-sm w-48 xs:w-56 md:w-64 hover:scale-[1.02] transition-all duration-300 hover-target">
+                            <div class="w-full marquee-image-small rounded-xl bg-cover bg-center border border-slate-100/50 shadow-inner" style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780157017/Blue_and_White_Modern_Travel_Mobile_Banner_Ad.png?auto=format&fit=crop&w=400&q=80');"></div>
+                            <div class="px-1 pb-1">
+                                <span class="text-[9px] font-bold uppercase text-brand-500 tracking-wider font-sans mb-0.5 block">Festive Ad</span>
+                                <div class="text-xs font-bold uppercase text-slate-800 tracking-wider font-sans truncate">Holiday Creatives</div>
+                            </div>
+                        </div>
+
+                        <div class="flex-shrink-0 flex flex-col space-y-3 bg-white/80 border border-slate-200/60 p-3 rounded-2xl shadow-sm w-48 xs:w-56 md:w-64 hover:scale-[1.02] transition-all duration-300 hover-target">
+                            <div class="w-full marquee-image-small rounded-xl bg-cover bg-center border border-slate-100/50 shadow-inner" style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780157017/Blue_and_White_Modern_Travel_Mobile_Banner_Ad.png?auto=format&fit=crop&w=400&q=80');"></div>
+                            <div class="px-1 pb-1">
+                                <span class="text-[9px] font-bold uppercase text-brand-500 tracking-wider font-sans mb-0.5 block">Flash Sale</span>
+                                <div class="text-xs font-bold uppercase text-slate-800 tracking-wider font-sans truncate">Cyber Week Promos</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- CATEGORY IV: MOCKUPS OR BROCHURE DESIGN (Scroll-driven Image Stacking) -->
+        <section id="packaging" class="relative w-full h-screen flex flex-col justify-center items-center overflow-hidden bg-transparent" data-glow="from-emerald-100 to-teal-100">
+            <!-- Pinned Header -->
+            <div class="w-full mx-auto px-4 pt-20 md:pt-24 pb-4 z-20 flex-shrink-0">
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-500 font-sans">Category IV</span>
+                <h2 class="font-display text-3xl sm:text-5xl md:text-6xl font-medium text-slate-900 mt-2">Mockups & Brochure Design</h2>
+            </div>
+
+            <!-- Stacking Wrapper (A4 Landscape aspect ratio, highly responsive) -->
+            <div class="relative w-[92vw] max-w-[1100px] aspect-[1.414/1] max-h-[50vh] sm:max-h-[60vh] md:max-h-[65vh] z-10 flex items-center justify-center">
+                <div class="stack-img absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780286580/Restro_Menu_Brochure.png'); z-index: 10;"></div>
+                <div class="stack-img absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780287189/Clean_and_Modern_App_Portfolio_Mockup_Presentation_20260601_094245_0000_p9ye6p.png'); z-index: 20;"></div>
+                <div class="stack-img absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780288255/Black_Grunge_Book_Cover_Mockup_Instagram_Post_29.7_x_21_cm__20260601_100027_0000_nmu9wo.png'); z-index: 30;"></div>
+                <div class="stack-img absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780289699/Designer_deb_presents_20260601_102327_0000_ooluzn.png'); z-index: 40;"></div>
+                <div class="stack-img absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780289699/Designer_deb_presents_20260601_102327_0000_ooluzn.png'); z-index: 50;"></div>
+                                
+            </div>
+        </section>
+
+
+        <!-- CATEGORY V: SOCIAL CAMPAIGNS & FEED EMULATOR (Interactive Instagram Live Simulator) -->
+        <section id="social-feed" class="py-24 px-4 md:px-8 bg-slate-100/50 border-y border-slate-200/50 relative overflow-hidden" data-glow="from-indigo-100 to-purple-100">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-500 font-sans">Category V</span>
+                    <h2 class="font-display text-3xl sm:text-5xl md:text-6xl font-medium text-slate-900 mt-2">Instagram Mockup</h2>
+                </div>
+                <p class="text-slate-500 max-w-md leading-relaxed text-sm sm:text-base font-sans">
+                    Experience social assets natively inside a live Instagram browser simulator. Feel free to interact, like, and comment in real-time.
+                </p>
+            </div>
+
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
+                <!-- Selectors (Left) -->
+                <div class="lg:col-span-4 flex flex-col justify-center space-y-4">
+                    <button class="feed-tab-btn hover-target active text-left p-6 rounded-2xl transition-all duration-300 border border-slate-200/50 bg-white/40 shadow-sm flex items-center justify-between" data-feed-target="coffee">
+                        <div>
+                            <span class="text-[10px] font-bold text-brand-500 tracking-wider uppercase block mb-1 font-sans">01 / BRAND CAMPAIGN</span>
+                            <h4 class="font-display text-lg font-bold text-slate-800">Aura Coffee Menu</h4>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-xs opacity-50"></i>
+                    </button>
+
+                    <button class="feed-tab-btn hover-target text-left p-6 rounded-2xl transition-all duration-300 border border-transparent hover:bg-white/40 flex items-center justify-between" data-feed-target="monsoon">
+                        <div>
+                            <span class="text-[10px] font-bold text-slate-400 tracking-wider uppercase block mb-1 font-sans">02 / EXPERIMENTAL GRAPHIC</span>
+                            <h4 class="font-display text-lg font-bold text-slate-800">Monsoon Pairs</h4>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-xs opacity-50"></i>
+                    </button>
+
+                    <button class="feed-tab-btn hover-target text-left p-6 rounded-2xl transition-all duration-300 border border-transparent hover:bg-white/40 flex items-center justify-between" data-feed-target="laxmi">
+                        <div>
+                            <span class="text-[10px] font-bold text-slate-400 tracking-wider uppercase block mb-1 font-sans">03 / FESTIVAL LAUNCH</span>
+                            <h4 class="font-display text-lg font-bold text-slate-800">Spiritual Laxmi Post</h4>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-xs opacity-50"></i>
+                    </button>
+                </div>
+
+                <!-- Instagram Post Live Emulator (Right) -->
+                <div class="lg:col-span-8 flex items-center justify-center">
+                    <div class="w-full max-w-[480px] glass-panel rounded-3xl p-4 shadow-2xl relative overflow-hidden flex flex-col text-slate-800 border border-white/60">
+                        
+                        <!-- Profile Header -->
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-200/50 mb-3">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-brand-500 to-purple-500 p-[2px]">
+                                    <div class="w-full h-full rounded-full bg-cover bg-center" style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1780231292/DD_LOGO.jpg');"></div>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold font-sans tracking-wide">insta.designerdeb</h4>
+                                    <p class="text-[9px] text-slate-400 uppercase tracking-widest font-sans font-medium">Agartala, India</p>
+                                </div>
+                            </div>
+                            <button class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-ellipsis"></i></button>
+                        </div>
+
+                        <!-- Post Creative Render Frame -->
+                        <div class="w-full aspect-square rounded-2xl overflow-hidden relative bg-slate-950">
+                            <div id="emulator-post-img" class="w-full h-full bg-cover bg-center transition-all duration-300" style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1779904187/20250605_102852_uotmqy.png');"></div>
+                        </div>
+
+                        <!-- Interactive Action Toolbar -->
+                        <div class="flex justify-between items-center py-3">
+                            <div class="flex space-x-4 text-xl">
+                                <button id="emu-like-btn" class="hover-target text-slate-700 hover:scale-110 active:scale-95 transition-all"><i class="fa-regular fa-heart"></i></button>
+                                <button id="emu-comment-btn" class="hover-target text-slate-700 hover:scale-110 active:scale-95 transition-all"><i class="fa-regular fa-comment"></i></button>
+                                <button id="emu-share-btn" class="hover-target text-slate-700 hover:scale-110 active:scale-95 transition-all"><i class="fa-regular fa-paper-plane"></i></button>
+                            </div>
+                            <button id="emu-save-btn" class="hover-target text-xl text-slate-700 hover:scale-110 active:scale-95 transition-all"><i class="fa-regular fa-bookmark"></i></button>
+                        </div>
+
+                        <!-- Likes Count -->
+                        <div class="text-xs font-bold font-sans mb-1 select-none">
+                            <span id="emu-like-count">1,248</span> likes
+                        </div>
+
+                        <!-- Caption Block -->
+                        <div class="text-xs font-sans leading-relaxed mb-3">
+                            <span class="font-bold mr-1">insta.designerdeb</span>
+                            <span id="emu-caption-text">Fresh visual assets developed for Aura Craft Coffee. Fusing functional typography layout systems with structural packaging design.</span>
+                        </div>
+
+                        <!-- Dynamic Comment Thread (Scroll Container) -->
+                        <div id="emu-comments-container" class="max-h-[100px] overflow-y-auto no-scrollbar space-y-2 border-t border-slate-200/50 pt-3 mb-3 text-[11px] font-sans">
+                            <div>
+                                <span class="font-bold mr-1">apex_flows</span>
+                                <span class="text-slate-600">The grid systems are incredible! Clean vectors.</span>
+                            </div>
+                            <div>
+                                <span class="font-bold mr-1">visual_curator</span>
+                                <span class="text-slate-600">That layout composition is brilliant 🔥</span>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Comment Post Interface -->
+                        <form id="emu-comment-form" class="flex items-center space-x-2 border-t border-slate-200/50 pt-2">
+                            <input id="emu-comment-input" type="text" placeholder="Add a comment..." class="flex-grow bg-slate-50 border border-slate-200/60 rounded-full px-4 py-2 text-xs font-sans outline-none focus:border-brand-500/50 transition-colors" autocomplete="off">
+                            <button type="submit" class="hover-target px-4 py-2 bg-slate-900 text-white font-bold text-[10px] uppercase tracking-wider rounded-full hover:bg-brand-500 transition-colors">Post</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- DESIGNER INTRODUCTION (Debabrata Storyteller Segment) -->
+        <section id="about" class="py-24 px-4 md:px-8 relative overflow-hidden" data-glow="from-emerald-100 to-teal-100">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- Portrait & Visuals Left -->
+                <div class="lg:col-span-5 relative flex justify-center w-full">
+                    <div class="relative w-80 h-[420px] sm:w-[400px] sm:h-[520px] md:w-[450px] md:h-[580px] lg:w-full lg:max-w-[460px] lg:h-[580px] rounded-[40px] overflow-hidden glass-panel p-4 shadow-2xl">
+                        <!-- Abstract Visual Representative Placeholder -->
+                        <div 
+    class="w-full h-full bg-slate-950 rounded-[30px] flex flex-col justify-between p-8 text-white relative overflow-hidden group bg-cover bg-center"
+    style="background-image: url('https://res.cloudinary.com/dfyuuze2y/image/upload/v1779883818/New_Project_4_4C33CDC_vlmoke.png');"
+>
+                            <!-- Artistic Vector Mesh inside placeholder -->
+                            <div class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black to-transparent"></div>
+                            
+                            <div class="z-10 flex justify-between items-start">
+                                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400 font-sans">DESIGN LEAD</span>
+                            </div>
+
+                            <div class="z-10 mt-auto">
+                                <h3 class="font-display text-3xl sm:text-4xl font-semibold tracking-tight uppercase leading-none italic">Debabrata</h3>
+                                <p class="text-xs text-slate-300 mt-2 font-medium font-sans">Visual Identity Specialist</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Floating Experience badge -->
+                    <div class="absolute -bottom-6 -right-2 glass-panel px-6 py-4 rounded-2xl shadow-xl flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-brand-500 flex items-center justify-center text-white font-black">5+</div>
+                        <div>
+                            <div class="text-xs font-bold text-slate-800 font-sans">Years Active</div>
+                            <div class="text-[10px] text-slate-400 uppercase tracking-wider font-sans">Creative Industry</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info & Story Right -->
+                <div class="lg:col-span-7 flex flex-col space-y-8">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-brand-500 font-sans">The Architect</span>
+                        <h2 class="font-display text-3xl sm:text-5xl md:text-6xl font-medium text-slate-900 mt-2 leading-none">Debabrata</h2>
+                    </div>
+
+                    <p class="text-slate-600 text-sm sm:text-base md:text-lg leading-relaxed font-sans">
+                        I build striking, memorable visual frameworks that balance creative boldness with precision engineering. Elevating brands across physical packaging, high-performing advertisement campaigns, and scalable layout styles.
+                    </p>
+
+                    <!-- Stats Counter Block -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-4 border-t border-slate-200">
+                        <div>
+                            <h4 id="counter-projects" class="font-display text-3xl sm:text-4xl font-medium text-slate-900">50+</h4>
+                            <p class="text-[10px] sm:text-xs text-slate-500 uppercase tracking-widest mt-1 font-sans">Promos Designed</p>
+                        </div>
+                        <div>
+                            <h4 id="counter-brands" class="font-display text-3xl sm:text-4xl font-medium text-slate-900">10+</h4>
+                            <p class="text-[10px] sm:text-xs text-slate-500 uppercase tracking-widest mt-1 font-sans"> Collaborations</p>
+                        </div>
+                        <div class="col-span-2 sm:col-span-1">
+                            <h4 id="counter-satisfaction" class="font-display text-3xl sm:text-4xl font-medium text-slate-900">99%</h4>
+                            <p class="text-[10px] sm:text-xs text-slate-500 uppercase tracking-widest mt-1 font-sans">Client Retention Rate</p>
+                        </div>
+                    </div>
+
+                    <!-- Software Expertise Tags -->
+                    <div class="pt-6">
+                        <span class="text-xs font-bold uppercase tracking-widest text-slate-400 block mb-3 font-sans">Core Tool Suite</span>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="glass-panel text-xs font-semibold px-4 py-2 rounded-full text-slate-700 font-sans">Adobe Photoshop</span>
+                            <span class="glass-panel text-xs font-semibold px-4 py-2 rounded-full text-slate-700 font-sans">Adobe Pagemaker</span>
+                            <span class="glass-panel text-xs font-semibold px-4 py-2 rounded-full text-slate-700 font-sans">Canva Expert</span>
+                            <span class="glass-panel text-xs font-semibold px-4 py-2 rounded-full text-slate-700 font-sans">PhotoPea</span>
+                            <span class="glass-panel text-xs font-semibold px-4 py-2 rounded-full text-slate-700 font-sans">Adobe LR</span>
+                            <span class="glass-panel text-xs font-semibold px-4 py-2 rounded-full text-slate-700 font-sans">Pixellab Pro</span>
+                            <span class="glass-panel text-xs font-semibold px-4 py-2 rounded-full text-slate-700 font-sans">After Motion</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- SOCIAL PROOF & CLIENT TRUST (Testimonial Slider & Metrics) -->
+        <section id="testimonials" class="py-24 px-4 md:px-8 bg-slate-100/30 border-t border-slate-200/50 relative overflow-hidden" data-glow="from-violet-100 to-indigo-100">
+            <div class="max-w-7xl mx-auto mb-16 text-center md:text-left">
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-500 font-sans">Client Space</span>
+                <h2 class="font-display text-3xl sm:text-5xl md:text-6xl font-medium text-slate-900 mt-2">Social Proof & Metrics</h2>
+            </div>
+
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Swiper Testimonials (Left) -->
+                <div class="lg:col-span-7 w-full overflow-hidden">
+                    <div class="swiper swiper-testimonials py-8">
+                        <div class="swiper-wrapper">
+                            <!-- Card 1 -->
+                            <div class="swiper-slide glass-panel p-8 rounded-3xl shadow-lg relative">
+                                <div class="text-brand-500 text-3xl mb-4"><i class="fa-solid fa-quote-left"></i></div>
+                                <p class="text-slate-700 font-medium text-lg sm:text-xl leading-relaxed mb-6 font-sans">
+                                    "Deb's ability to translate complex SaaS functions into incredibly attractive social graphics blew us away. The aesthetic completely reset our positioning."
+                                </p>
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 rounded-full bg-slate-300 flex items-center justify-center font-bold text-xs text-slate-800 font-sans">JS</div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 text-sm font-sans">Jason Sterling</h4>
+                                        <p class="text-xs text-slate-500 font-sans">Marketing VP, ApexFlow</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Card 2 -->
+                            <div class="swiper-slide glass-panel p-8 rounded-3xl shadow-lg relative">
+                                <div class="text-brand-500 text-3xl mb-4"><i class="fa-solid fa-quote-left"></i></div>
+                                <p class="text-slate-700 font-medium text-lg sm:text-xl leading-relaxed mb-6 font-sans">
+                                    "Extremely swift delivery and beautiful layout consistency. He engineered an entire social campaign identity that outperformed our baseline ctr by 40."
+                                </p>
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 rounded-full bg-slate-300 flex items-center justify-center font-bold text-xs text-slate-800 font-sans">MK</div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 text-sm font-sans">Melody Kincaid</h4>
+                                        <p class="text-xs text-slate-500 font-sans">Creative Lead, VectorHQ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Navigation arrows -->
+                        <div class="flex justify-start space-x-4 mt-8">
+                            <button class="swiper-prev glass-panel w-12 h-12 rounded-full flex items-center justify-center hover:bg-slate-900 hover:text-white transition-colors"><i class="fa-solid fa-chevron-left"></i></button>
+                            <button class="swiper-next glass-panel w-12 h-12 rounded-full flex items-center justify-center hover:bg-slate-900 hover:text-white transition-colors"><i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Client Collaboration Logos & Trust (Right) -->
+                <div class="lg:col-span-5 grid grid-cols-2 gap-4">
+                    <div class="glass-panel p-6 rounded-2xl flex flex-col items-center justify-center text-center">
+                        <span class="text-3xl font-display font-medium text-slate-900">4.9/5</span>
+                        <p class="text-xs text-slate-400 uppercase tracking-widest mt-1 font-sans">Average Review Score</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-2xl flex flex-col items-center justify-center text-center">
+                        <span class="text-3xl font-display font-medium text-slate-900">100%</span>
+                        <p class="text-xs text-slate-400 uppercase tracking-widest mt-1 font-sans">Deadline Delivery</p>
+                    </div>
+                </div>
+                <div class="hero-reveal flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4 w-full">
+                        <button onclick="openSocialModal()" class="magnetic-btn hover-target w-full sm:w-auto px-8 py-4 bg-brand-500 hover:bg-slate-900 text-white font-bold rounded-full shadow-lg shadow-brand-500/20 hover:shadow-slate-900/20 transition-all duration-300">
+                            Hit our inbox <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                </div>
+            </div>
+        </section>
+        
+
+
+        <!-- PREMIUM CONTACT MODAL / "LET'S TALK" POPUP -->
+        <div id="social-modal" class="fixed inset-0 z-[20000] hidden items-center justify-center p-4">
+            <!-- Modal Backdrop -->
+            <div onclick="closeSocialModal()" class="absolute inset-0 bg-slate-900/40 backdrop-blur-xl"></div>
+            
+            <!-- Modal Box -->
+            <div class="relative glass-panel rounded-[32px] w-full max-w-lg p-8 md:p-10 shadow-2xl transform scale-95 opacity-0 transition-all duration-300">
+                <button onclick="closeSocialModal()" class="absolute top-6 right-6 w-10 h-10 glass-panel rounded-full flex items-center justify-center hover:bg-slate-900 hover:text-white transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <div class="mb-8">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-500 font-sans">Initiate Dialogue</span>
+                    <h3 class="font-display text-3xl font-semibold text-slate-900 mt-2">Connect Instantly</h3>
+                    <p class="text-slate-500 text-sm mt-2 font-sans">Pick your platform to start a direct, seamless project consultation.</p>
+                </div>
+
+                <!-- Dynamic Links Container (Hydrated by JS config) -->
+                <div id="social-links-grid" class="grid grid-cols-2 gap-4">
+                    <!-- Javascript populates this block with configurations -->
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-slate-200 text-center text-xs text-slate-400 font-sans">
+                    Typically responds within 2 business hours.
+                </div>
+            </div>
+        </div>
+
+
+        <!-- FOOTER -->
+        <footer class="py-12 border-t border-slate-200/50 bg-white/50 relative z-20">
+            <div class="max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center space-x-3">
+                    <span class="font-display font-medium italic text-2xl text-slate-900">Designer Deb<span class="text-brand-500 not-italic font-bold">.</span></span>
+                    <span class="text-xs text-slate-400 font-mono">/ PORTFOLIO 2026</span>
+                </div>
+
+                <!-- Footer Social Hooks -->
+                <div class="flex items-center space-x-4 text-slate-600">
+                    <a href="https://instagram.com/designer_deb" target="_blank" rel="noopener" class="hover-target hover:text-brand-500 text-lg transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://behance.net/designer_deb" target="_blank" rel="noopener" class="hover-target hover:text-brand-500 text-lg transition-colors"><i class="fa-brands fa-behance"></i></a>
+                    <a href="https://dribbble.com/designer_deb" target="_blank" rel="noopener" class="hover-target hover:text-brand-500 text-lg transition-colors"><i class="fa-brands fa-dribbble"></i></a>
+                    <a href="mailto:hey@designerdeb.indevs.in" class="hover-target hover:text-brand-500 text-lg transition-colors"><i class="fa-solid fa-envelope"></i></a>
+                </div>
+
+                <div class="text-xs text-slate-400 font-medium font-sans">
+                    © 2026 Designer Deb. All Visual Rights Maintained.
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Swiper JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- GSAP for core smooth movements -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Lenis Smooth Scrolling CDN -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+
+    <script>
+        /* ==========================================================
+           1. SOCIAL LINK CONFIGURATION OBJECT
+           ========================================================== */
+        const SOCIAL_CONFIG = {
+            instagram: {
+                name: "Instagram",
+                url: "https://instagram.com/insta.designerdeb",
+                icon: "fa-brands fa-instagram",
+                color: "text-pink-600 bg-pink-50 border-pink-100"
+            },
+            behance: {
+                name: "Behance",
+                url: "https://behance.net/designer_deb",
+                icon: "fa-brands fa-behance",
+                color: "text-blue-600 bg-blue-50 border-blue-100"
+            },
+            dribbble: {
+                name: "Dribbble",
+                url: "https://dribbble.com/designer_deb",
+                icon: "fa-brands fa-dribbble",
+                color: "text-rose-500 bg-rose-50 border-rose-100"
+            },
+            whatsapp: {
+                name: "WhatsApp",
+                url: "https://wa.me/916909649410",
+                icon: "fa-brands fa-whatsapp",
+                color: "text-emerald-600 bg-emerald-50 border-emerald-100"
+            },
+            email: {
+                name: "Email",
+                url: "mailto:hey@designerdeb.indevs.in",
+                icon: "fa-solid fa-envelope",
+                color: "text-indigo-600 bg-indigo-50 border-indigo-100"
+            },
+            facebook: {
+                name: "Facebook",
+                url: "https://facebook.com/designer_deb",
+                icon: "fa-brands fa-facebook",
+                color: "text-blue-700 bg-blue-50 border-blue-200"
+            }
+        };
+
+        /* Hydrate Social Links Modal dynamically on load */
+        function initSocialLinks() {
+            const container = document.getElementById('social-links-grid');
+            if(!container) return;
+            
+            container.innerHTML = '';
+            Object.keys(SOCIAL_CONFIG).forEach(key => {
+                const item = SOCIAL_CONFIG[key];
+                const linkElement = `
+                    <a href="${item.url}" target="_blank" rel="noopener" class="flex items-center space-x-3 p-4 border rounded-2xl ${item.color} hover:scale-[1.03] transition-all duration-200 hover-target">
+                        <span class="text-2xl"><i class="${item.icon}"></i></span>
+                        <span class="font-bold text-sm text-slate-800 font-sans">${item.name}</span>
+                    </a>
+                `;
+                container.innerHTML += linkElement;
+            });
+        }
+
+        /* ==========================================================
+           2. BASIC CONTENT PROTECTION LAWS (NON-INTRUSIVE)
+           ========================================================== */
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('dragstart', e => { if (e.target.nodeName === 'IMG') e.preventDefault(); });
+        document.addEventListener('keydown', e => {
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'x' || e.key === 'u' || e.key === 's' || e.key === 'i' || e.key === 'j')) {
+                e.preventDefault();
+            }
+        });
+
+        /* ==========================================================
+           3. REAL RESOURCE ASSETS LOADER SYSTEM
+           ========================================================== */
+        window.addEventListener('DOMContentLoaded', () => {
+            initSocialLinks();
+            
+            // Gather all asset URLs (images and background-images) to track real progress
+            const assets = [];
+            document.querySelectorAll('img').forEach(img => { if (img.src) assets.push(img.src); });
+            document.querySelectorAll('[style*="background-image"]').forEach(el => {
+                const style = el.style.backgroundImage;
+                const match = style.match(/url\(['"]?([^'"]+)['"]?\)/);
+                if (match && match[1]) assets.push(match[1]);
+            });
+
+            let loadedCount = 0;
+            const totalAssets = assets.length || 1;
+            const preloaderPerc = document.getElementById('preloader-perc');
+            const preloaderBar = document.getElementById('preloader-bar');
+            
+            let targetPercentage = 0;
+            let currentPercentage = 0;
+
+            // Frame tick to interpolate progress smoothly
+            const loaderInterval = setInterval(() => {
+                if (currentPercentage < targetPercentage) {
+                    currentPercentage += 1;
+                    preloaderPerc.innerText = String(currentPercentage).padStart(2, '0');
+                    preloaderBar.style.width = currentPercentage + '%';
+                }
+                
+                if (currentPercentage >= 100) {
+                    clearInterval(loaderInterval);
+                    
+                    // Exit Loader Scene gracefully
+                    gsap.to('#preloader', {
+                        yPercent: -100,
+                        duration: 1.2,
+                        ease: "power4.inOut",
+                        onComplete: () => {
+                            document.getElementById('preloader').style.display = 'none';
+                            // Fire Hero Animations on enter
+                            triggerHeroEntrance();
+                        }
+                    });
+                }
+            }, 10);
+
+            // Asset preloading
+            if (assets.length === 0) {
+                targetPercentage = 100;
+            } else {
+                assets.forEach(url => {
+                    const img = new Image();
+                    img.onload = () => {
+                        loadedCount++;
+                        targetPercentage = Math.floor((loadedCount / totalAssets) * 100);
+                    };
+                    img.onerror = () => {
+                        loadedCount++;
+                        targetPercentage = Math.floor((loadedCount / totalAssets) * 100);
+                    };
+                    img.src = url;
+                });
+            }
+
+            // Window load & safety timeout checks
+            window.addEventListener('load', () => { targetPercentage = 100; });
+            setTimeout(() => { targetPercentage = 100; }, 5000); // Fail-safe limit
+        });
+
+        /* ==========================================================
+           4. HIGH PERFORMANCE CUSTOM CURSOR (WITHOUT GSAP OVERHEAD)
+           ========================================================== */
+        const cursor = document.getElementById('cursor');
+        const follower = document.getElementById('cursor-follower');
+        let cursorX = 0, cursorY = 0;
+        let followerX = 0, followerY = 0;
+
+        document.addEventListener('mousemove', e => {
+            cursorX = e.clientX;
+            cursorY = e.clientY;
+        });
+
+        // Combined GPU-accelerated requestAnimationFrame loop
+        function updateCursorFrame() {
+            followerX += (cursorX - followerX) * 0.12;
+            followerY += (cursorY - followerY) * 0.12;
+            
+            cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+            follower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0) translate(-50%, -50%)`;
+            
+            requestAnimationFrame(updateCursorFrame);
+        }
+        requestAnimationFrame(updateCursorFrame);
+
+        // Custom Mouse Hover Actions
+        const setHoverListeners = () => {
+            const elements = document.querySelectorAll('.hover-target, button, a, [role="button"], .swiper-slide, .merch-item, .feed-tab-btn');
+            elements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    document.body.classList.add('hover-active');
+                });
+                el.addEventListener('mouseleave', () => {
+                    document.body.classList.remove('hover-active');
+                });
+            });
+        };
+        setTimeout(setHoverListeners, 1000);
+
+        // Magnetic effect on interactive components
+        const setMagneticButtons = () => {
+            const magnetics = document.querySelectorAll('.magnetic-btn');
+            magnetics.forEach(btn => {
+                btn.addEventListener('mousemove', e => {
+                    const bgRect = btn.getBoundingClientRect();
+                    const x = e.clientX - bgRect.left - (bgRect.width / 2);
+                    const y = e.clientY - bgRect.top - (bgRect.height / 2);
+                    
+                    gsap.to(btn, {
+                        x: x * 0.3,
+                        y: y * 0.3,
+                        duration: 0.2,
+                        ease: "power2.out"
+                    });
+                });
+                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, {
+                        x: 0,
+                        y: 0,
+                        duration: 0.5,
+                        ease: "elastic.out(1, 0.3)"
+                    });
+                });
+            });
+        };
+        setTimeout(setMagneticButtons, 1000);
+
+        /* ==========================================================
+           5. DYNAMIC AMBIENT BACKDROP TRIGGERS
+           ========================================================== */
+        function initAmbientLightTracker() {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(sec => {
+                ScrollTrigger.create({
+                    trigger: sec,
+                    start: "top center",
+                    end: "bottom center",
+                    onEnter: () => updateAmbientGlow(sec.getAttribute('data-glow')),
+                    onEnterBack: () => updateAmbientGlow(sec.getAttribute('data-glow')),
+                });
+            });
+        }
+
+        function updateAmbientGlow(glowClass) {
+            if (!glowClass) return;
+            const [fromColor] = glowClass.split(' ');
+            
+            const glow1 = document.getElementById('ambient-glow-1');
+            const glow2 = document.getElementById('ambient-glow-2');
+            
+            if (fromColor.includes('indigo')) {
+                gsap.to(glow1, { backgroundColor: 'rgba(129, 140, 248, 0.4)', duration: 1.5 });
+                gsap.to(glow2, { backgroundColor: 'rgba(196, 181, 253, 0.3)', duration: 1.5 });
+            } else if (fromColor.includes('teal')) {
+                gsap.to(glow1, { backgroundColor: 'rgba(45, 212, 191, 0.3)', duration: 1.5 });
+                gsap.to(glow2, { backgroundColor: 'rgba(56, 189, 248, 0.3)', duration: 1.5 });
+            } else if (fromColor.includes('amber')) {
+                gsap.to(glow1, { backgroundColor: 'rgba(251, 191, 36, 0.25)', duration: 1.5 });
+                gsap.to(glow2, { backgroundColor: 'rgba(249, 115, 22, 0.25)', duration: 1.5 });
+            } else if (fromColor.includes('pink')) {
+                gsap.to(glow1, { backgroundColor: 'rgba(244, 63, 94, 0.25)', duration: 1.5 });
+                gsap.to(glow2, { backgroundColor: 'rgba(168, 85, 247, 0.25)', duration: 1.5 });
+            } else if (fromColor.includes('emerald')) {
+                gsap.to(glow1, { backgroundColor: 'rgba(16, 185, 129, 0.25)', duration: 1.5 });
+                gsap.to(glow2, { backgroundColor: 'rgba(20, 184, 166, 0.25)', duration: 1.5 });
+            }
+        }
+
+        /* ==========================================================
+           6. GSAP ANIMATIONS & LENIS SMOOTH SCROLL
+           ========================================================== */
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Smooth Scroll Initializer
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            touchMultiplier: 2,
+            infinite: false,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Connect Lenis back with GSAP ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+
+        // Setup smooth anchor triggers
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetEl = document.querySelector(targetId);
+                if (targetEl) {
+                    lenis.scrollTo(targetEl, {
+                        offset: -80,
+                        duration: 1.2,
+                        immediate: false
+                    });
+                }
+            });
+        });
+
+        // Hero Entrance
+        function triggerHeroEntrance() {
+            gsap.from('.hero-reveal', {
+                y: 40,
+                opacity: 0,
+                stagger: 0.12,
+                duration: 0.8,
+                ease: "power3.out"
+            });
+            gsap.from('.hero-card', {
+                scale: 0.8,
+                opacity: 0,
+                stagger: 0.15,
+                duration: 1,
+                ease: "back.out(1.5)",
+                delay: 0.4
+            });
+            
+            initAmbientLightTracker();
+            initBrochureStack();
+            initInstagramFeedSwitcher();
+        }
+
+        /* ==========================================================
+           7. SWIPER INSTANCES (3D Coverflow & Testimonials)
+           ========================================================== */
+        const coverflowSwiper = new Swiper('.swiper-coverflow', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            coverflowEffect: {
+                rotate: 15,
+                stretch: 0,
+                depth: 100,
+                modifier: 2.5,
+                slideShadows: false,
+            },
+            autoplay: {
+                delay: 3500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+
+        const testimonialSwiper = new Swiper('.swiper-testimonials', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            grabCursor: true,
+            autoplay: {
+                delay: 4500,
+                disableOnInteraction: false,
+            },
+            navigation: {
+                nextEl: '.swiper-next',
+                prevEl: '.swiper-prev',
+            },
+        });
+
+        /* ==========================================================
+           8. MODAL ACTIONS
+           ========================================================== */
+        function openSocialModal() {
+            const modal = document.getElementById('social-modal');
+            const box = modal.querySelector('.relative');
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            gsap.to(box, {
+                scale: 1,
+                opacity: 1,
+                duration: 0.4,
+                ease: "back.out(1.5)"
+            });
+        }
+
+        function closeSocialModal() {
+            const modal = document.getElementById('social-modal');
+            const box = modal.querySelector('.relative');
+            
+            gsap.to(box, {
+                scale: 0.9,
+                opacity: 0,
+                duration: 0.3,
+                ease: "power2.in",
+                onComplete: () => {
+                    modal.classList.remove('flex');
+                    modal.classList.add('hidden');
+                }
+            });
+        }
+
+        /* ==========================================================
+           9. MOCKUPS OR BROCHURE DESIGN STACKING (CATEGORY IV)
+           ========================================================== */
+        function initBrochureStack() {
+            const section = document.getElementById('packaging');
+            if (!section) return;
+
+            // Enforce initial hardware-accelerated position
+            gsap.set('.stack-img:not(:first-child)', { y: "100vh", force3D: true });
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top top",
+                    end: "+=300%", // Scroll space directly mapped to 3 stacked images
+                    pin: true,
+                    scrub: true,
+                    anticipatePin: 1,
+                    invalidateOnRefresh: true
+                }
+            });
+
+            // Transition remaining layout images progressively to overlap cleanly
+            tl.to('.stack-img:nth-child(2)', { y: 0, ease: "none", force3D: true })
+              .to('.stack-img:nth-child(3)', { y: 0, ease: "none", force3D: true })
+              .to('.stack-img:nth-child(4)', { y: 0, ease: "none", force3D: true });
+        }
+
+        /* ==========================================================
+           10. SOCIAL MEDIA LIVE POST FEED EMULATOR (CATEGORY V)
+           ========================================================== */
+        const FEED_DATA = {
+            coffee: {
+                img: "https://res.cloudinary.com/dfyuuze2y/image/upload/v1779904187/20250605_102852_uotmqy.png",
+                caption: "Fresh visual assets developed for Aura Craft Coffee. Fusing functional typography layout systems with structural packaging design.",
+                likes: 1248,
+                comments: [
+                    { user: "apex_flows", text: "The grid systems are incredible! Clean vectors." },
+                    { user: "visual_curator", text: "That layout composition is brilliant 🔥" }
+                ]
+            },
+            monsoon: {
+                img: "https://res.cloudinary.com/dfyuuze2y/image/upload/v1779904190/20250604_125441_pqie5n.png",
+                caption: "Constructive Chaos: Monsoon Pairs. Experimental typographic forms capturing the motion and organic structure of monsoon weather.",
+                likes: 852,
+                comments: [
+                    { user: "studio_prime", text: "This typesetting is purely majestic!" },
+                    { user: "designer_deb", text: "@studio_prime Thank you! More editorial drops on the way." }
+                ]
+            },
+            laxmi: {
+                img: "https://res.cloudinary.com/dfyuuze2y/image/upload/v1779904173/Pink_Elegant_Laxmi_Puja_Greeting_Instagram_Post_20251001_192715_0000_kp70en.png",
+                caption: "Divine Connection. Festival branding layout designed using luxury gradients, gold foil accents, and high fidelity vector illustrations.",
+                likes: 2104,
+                comments: [
+                    { user: "cultural_eye", text: "Capturing spiritual elegance beautifully." },
+                    { user: "lux_designs", text: "The color palette transition is absolutely pristine!" }
+                ]
+            }
+        };
+
+        function initInstagramFeedSwitcher() {
+            const tabs = document.querySelectorAll('.feed-tab-btn');
+            const postImage = document.getElementById('emulator-post-img');
+            const postCaption = document.getElementById('emu-caption-text');
+            const likeCounter = document.getElementById('emu-like-count');
+            const commentThread = document.getElementById('emu-comments-container');
+            const commentForm = document.getElementById('emu-comment-form');
+            const commentInput = document.getElementById('emu-comment-input');
+            const likeBtn = document.getElementById('emu-like-btn');
+            const saveBtn = document.getElementById('emu-save-btn');
+
+            let currentFeedKey = "coffee";
+            let userLikedStates = { coffee: false, monsoon: false, laxmi: false };
+            let userSavedStates = { coffee: false, monsoon: false, laxmi: false };
+
+            if(!tabs.length || !postImage) return;
+
+            // Load comments dynamically
+            function loadFeedData(key) {
+                currentFeedKey = key;
+                const data = FEED_DATA[key];
+                
+                // Animate image transition
+                gsap.to(postImage, {
+                    opacity: 0.1,
+                    scale: 0.98,
+                    duration: 0.2,
+                    onComplete: () => {
+                        postImage.style.backgroundImage = `url('${data.img}')`;
+                        gsap.to(postImage, { opacity: 1, scale: 1, duration: 0.4 });
+                    }
+                });
+
+                // Update text metrics
+                postCaption.innerHTML = data.caption;
+                
+                // Adjust active likes state
+                const activeLikes = userLikedStates[key] ? data.likes + 1 : data.likes;
+                likeCounter.innerText = activeLikes.toLocaleString();
+
+                // Toggle heart visual representation based on current state
+                if (userLikedStates[key]) {
+                    likeBtn.innerHTML = '<i class="fa-solid fa-heart text-rose-500"></i>';
+                } else {
+                    likeBtn.innerHTML = '<i class="fa-regular fa-heart"></i>';
+                }
+
+                // Toggle bookmark visual representation based on state
+                if (userSavedStates[key]) {
+                    saveBtn.innerHTML = '<i class="fa-solid fa-bookmark text-slate-800"></i>';
+                } else {
+                    saveBtn.innerHTML = '<i class="fa-regular fa-bookmark"></i>';
+                }
+
+                // Re-populate comment stream safely
+                commentThread.innerHTML = '';
+                data.comments.forEach(comment => {
+                    const row = document.createElement('div');
+                    row.innerHTML = `<span class="font-bold mr-1">${comment.user}</span><span class="text-slate-600">${comment.text}</span>`;
+                    commentThread.appendChild(row);
+                });
+                commentThread.scrollTop = commentThread.scrollHeight;
+            }
+
+            // Tab Buttons click triggers
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => {
+                        t.classList.remove('active', 'border-slate-200/50', 'bg-white/40', 'shadow-sm');
+                        t.classList.add('border-transparent');
+                        t.querySelector('.font-bold').classList.remove('text-brand-500');
+                        t.querySelector('.font-bold').classList.add('text-slate-400');
+                    });
+                    tab.classList.add('active', 'border-slate-200/50', 'bg-white/40', 'shadow-sm');
+                    tab.classList.remove('border-transparent');
+                    tab.querySelector('.font-bold').classList.add('text-brand-500');
+                    tab.querySelector('.font-bold').classList.remove('text-slate-400');
+
+                    const target = tab.getAttribute('data-feed-target');
+                    loadFeedData(target);
+                });
+            });
+
+            // Interactive Like Counter
+            likeBtn.addEventListener('click', () => {
+                const data = FEED_DATA[currentFeedKey];
+                userLikedStates[currentFeedKey] = !userLikedStates[currentFeedKey];
+                
+                // Apply subtle scaling zoom animation on trigger
+                gsap.fromTo(likeBtn, { scale: 0.8 }, { scale: 1.1, duration: 0.15, yoyo: true, repeat: 1 });
+                
+                const activeLikes = userLikedStates[currentFeedKey] ? data.likes + 1 : data.likes;
+                likeCounter.innerText = activeLikes.toLocaleString();
+
+                if (userLikedStates[currentFeedKey]) {
+                    likeBtn.innerHTML = '<i class="fa-solid fa-heart text-rose-500"></i>';
+                } else {
+                    likeBtn.innerHTML = '<i class="fa-regular fa-heart"></i>';
+                }
+            });
+
+            // Interactive Save indicator
+            saveBtn.addEventListener('click', () => {
+                userSavedStates[currentFeedKey] = !userSavedStates[currentFeedKey];
+                gsap.fromTo(saveBtn, { scale: 0.8 }, { scale: 1.1, duration: 0.15, yoyo: true, repeat: 1 });
+                
+                if (userSavedStates[currentFeedKey]) {
+                    saveBtn.innerHTML = '<i class="fa-solid fa-bookmark text-slate-800"></i>';
+                } else {
+                    saveBtn.innerHTML = '<i class="fa-regular fa-bookmark"></i>';
+                }
+            });
+
+            // Comment Posting Interface
+            commentForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const text = commentInput.value.trim();
+                if(!text) return;
+
+                // Add comment locally to store
+                FEED_DATA[currentFeedKey].comments.push({ user: "You", text: text });
+                
+                // Create row dynamically and append
+                const row = document.createElement('div');
+                row.className = "opacity-0 transform translate-y-2 transition-all duration-300";
+                row.innerHTML = `<span class="font-bold mr-1">You</span><span class="text-slate-600">${text}</span>`;
+                
+                commentThread.appendChild(row);
+                commentInput.value = '';
+
+                // Scroll to end of thread and transition row entrance
+                setTimeout(() => {
+                    row.classList.remove('opacity-0', 'translate-y-2');
+                    commentThread.scrollTop = commentThread.scrollHeight;
+                }, 50);
+            });
+        }
+    </script>
+</body>
+</html>
